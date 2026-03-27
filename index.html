@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VITALE — Product Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080810;
+    --bg2: #0e0e1a;
+    --bg3: #141425;
+    --accent: #7effa0;
+    --accent2: #5b8cff;
+    --accent3: #ff6b6b;
+    --accent4: #ffd166;
+    --text: #f0f0f8;
+    --muted: #6b6b8a;
+    --border: rgba(126,255,160,0.12);
+    --card: rgba(20,20,37,0.8);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    padding: 0 60px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(94,255,140,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(91,140,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 40% at 50% 10%, rgba(255,107,107,0.04) 0%, transparent 60%);
+  }
+
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(126,255,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(126,255,160,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(8,8,16,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+
+  .logo span { color: var(--text); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 36px;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--accent); }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(126,255,160,0.08);
+    border: 1px solid rgba(126,255,160,0.2);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+
+  h1 .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(240,240,248,0.3);
+  }
+
+  h1 .accent { color: var(--accent); }
+
+  .hero-desc {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 48px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--muted));
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ── ECOSYSTEM SECTION ── */
+  .section {
+    padding: 100px 60px;
+    position: relative;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 60px;
+    max-width: 600px;
+  }
+
+  /* ── PLATFORMS ── */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 80px;
+  }
+
+  .platform-card {
+    background: var(--bg2);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .platform-card:hover { background: var(--bg3); }
+
+  .platform-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .platform-card:hover::before { opacity: 1; }
+
+  .platform-icon {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .platform-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .platform-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .platform-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+
+  .tag-green { color: var(--accent); border-color: rgba(126,255,160,0.3); background: rgba(126,255,160,0.05); }
+  .tag-blue { color: var(--accent2); border-color: rgba(91,140,255,0.3); background: rgba(91,140,255,0.05); }
+  .tag-red { color: var(--accent3); border-color: rgba(255,107,107,0.3); background: rgba(255,107,107,0.05); }
+  .tag-yellow { color: var(--accent4); border-color: rgba(255,209,102,0.3); background: rgba(255,209,102,0.05); }
+
+  /* ── DISCIPLINES ── */
+  .disciplines-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 80px;
+  }
+
+  .discipline-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 100px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text);
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .discipline-pill:hover {
+    border-color: rgba(126,255,160,0.3);
+    background: var(--bg3);
+    transform: translateY(-2px);
+  }
+
+  .disc-icon { font-size: 16px; }
+
+  /* ── ROADMAP TIMELINE ── */
+  #roadmap { padding-top: 80px; }
+
+  .timeline {
+    position: relative;
+    padding-left: 0;
+  }
+
+  .timeline-track {
+    position: absolute;
+    left: 180px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border) 5%, var(--border) 95%, transparent);
+  }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0;
+    margin-bottom: 2px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.5s forwards;
+  }
+
+  .phase:nth-child(2) { animation-delay: 0.1s; }
+  .phase:nth-child(3) { animation-delay: 0.2s; }
+  .phase:nth-child(4) { animation-delay: 0.3s; }
+  .phase:nth-child(5) { animation-delay: 0.4s; }
+  .phase:nth-child(6) { animation-delay: 0.5s; }
+  .phase:nth-child(7) { animation-delay: 0.6s; }
+  .phase:nth-child(8) { animation-delay: 0.7s; }
+  .phase:nth-child(9) { animation-delay: 0.8s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .phase-meta {
+    padding: 32px 0;
+    padding-right: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .phase-meta::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 44px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--muted);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .phase:hover .phase-meta::after {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(126,255,160,0.1);
+  }
+
+  .phase-version {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .phase-timeframe {
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0.6;
+    letter-spacing: 0.06em;
+  }
+
+  .phase-body {
+    padding: 24px 0 24px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .phase-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .phase-status {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+
+  .status-now { background: rgba(126,255,160,0.12); color: var(--accent); border: 1px solid rgba(126,255,160,0.25); }
+  .status-next { background: rgba(91,140,255,0.1); color: var(--accent2); border: 1px solid rgba(91,140,255,0.2); }
+  .status-planned { background: rgba(107,107,138,0.15); color: var(--muted); border: 1px solid rgba(107,107,138,0.2); }
+  .status-beta { background: rgba(255,209,102,0.1); color: var(--accent4); border: 1px solid rgba(255,209,102,0.2); }
+  .status-launch { background: rgba(255,107,107,0.1); color: var(--accent3); border: 1px solid rgba(255,107,107,0.2); }
+
+  .phase-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    max-width: 680px;
+  }
+
+  .features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .feature-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    color: rgba(240,240,248,0.7);
+    transition: all 0.2s;
+  }
+
+  .feature-chip:hover {
+    background: rgba(126,255,160,0.05);
+    border-color: rgba(126,255,160,0.15);
+    color: var(--text);
+  }
+
+  .chip-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* ── STACK SECTION ── */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .stack-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.2s;
+  }
+
+  .stack-card:hover {
+    border-color: rgba(126,255,160,0.2);
+    transform: translateY(-3px);
+  }
+
+  .stack-category {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .stack-tech {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .stack-why {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── PROFESSIONALS ── */
+  .pros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .pro-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.25s;
+    cursor: default;
+  }
+
+  .pro-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(126,255,160,0.2);
+    background: var(--bg3);
+  }
+
+  .pro-icon {
+    font-size: 32px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .pro-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .pro-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .github-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .github-link:hover {
+    color: var(--text);
+    border-color: rgba(126,255,160,0.3);
+    background: rgba(126,255,160,0.05);
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 60px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    header, .section, nav { padding-left: 24px; padding-right: 24px; }
+    .timeline-track { left: 80px; }
+    .phase { grid-template-columns: 80px 1fr; }
+    .phase-version { font-size: 11px; }
+    .platforms-grid { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+    footer { flex-direction: column; gap: 20px; text-align: center; }
+    .section-divider { margin: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">VITALE<span>.</span></div>
+  <ul>
+    <li><a href="#plataformas">Plataformas</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#equipo">Profesionales</a></li>
+  </ul>
+  <div class="status-badge">
+    <div class="status-dot"></div>
+    En Desarrollo
+  </div>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Product Roadmap — 2025 → 2026</div>
+    <h1>
+      SALUD<br>
+      <span class="line2">INTEGRAL</span><br>
+      <span class="accent">AUMENTADA.</span>
+    </h1>
+    <p class="hero-desc">
+      Plataforma multiusos de salud y rendimiento físico con inteligencia artificial, validación médica humana y seguimiento personalizado. Nutrición, entrenamiento, fisioterapia y psicología en un solo ecosistema.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Plataformas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">8</span>
+        <span class="stat-label">Fases</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">5</span>
+        <span class="stat-label">Disciplinas médicas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Deportes soportados</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Explorar
+  </div>
+</header>
+
+<div class="section-divider"></div>
+
+<!-- PLATAFORMAS -->
+<section class="section" id="plataformas">
+  <div class="section-label">01 — Ecosistema</div>
+  <h2 class="section-title">Tres plataformas,<br>un solo backend.</h2>
+
+  <div class="platforms-grid">
+    <div class="platform-card">
+      <div class="platform-icon">📱</div>
+      <div class="platform-name">App Móvil</div>
+      <p class="platform-desc">La experiencia principal del usuario. iOS primero, luego Android. Registro de comidas con cámara, entrenamientos guiados con animaciones, alertas inteligentes y seguimiento diario.</p>
+      <span class="platform-tag tag-green">React Native + Expo</span>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">🖥️</div>
+      <div class="platform-name">Web Admin</div>
+      <p class="platform-desc">Dashboard para médicos, nutricionistas, entrenadores, fisioterapeutas y psicólogos. Gestión de casos, validación de dietas, seguimiento de lesiones y comunicación con usuarios.</p>
+      <span class="platform-tag tag-blue">React + Vite</span>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">🌐</div>
+      <div class="platform-name">Web Pública</div>
+      <p class="platform-desc">Landing oficial de la aplicación, blog, precios, registro de nuevos usuarios y área de prensa. Integrada con el mismo sistema de autenticación y backend compartido.</p>
+      <span class="platform-tag tag-yellow">Next.js</span>
+    </div>
+  </div>
+
+  <!-- DISCIPLINAS -->
+  <div class="section-label" style="margin-top:60px;">02 — Disciplinas soportadas</div>
+  <h2 class="section-title" style="margin-bottom:32px;">De fitness casual<br>a alto rendimiento.</h2>
+  <div class="disciplines-wrap">
+    <div class="discipline-pill"><span class="disc-icon">🏋️</span> Fitness & Gym</div>
+    <div class="discipline-pill"><span class="disc-icon">🏊</span> Natación</div>
+    <div class="discipline-pill"><span class="disc-icon">🏃</span> Running & Trail</div>
+    <div class="discipline-pill"><span class="disc-icon">🚴</span> Ciclismo</div>
+    <div class="discipline-pill"><span class="disc-icon">⚽</span> Fútbol</div>
+    <div class="discipline-pill"><span class="disc-icon">🎾</span> Tenis & Pádel</div>
+    <div class="discipline-pill"><span class="disc-icon">🥊</span> Artes marciales</div>
+    <div class="discipline-pill"><span class="disc-icon">🧘</span> Yoga & Pilates</div>
+    <div class="discipline-pill"><span class="disc-icon">🏄</span> Deportes de agua</div>
+    <div class="discipline-pill"><span class="disc-icon">🏔️</span> Montañismo</div>
+    <div class="discipline-pill"><span class="disc-icon">🏅</span> Alto rendimiento</div>
+    <div class="discipline-pill"><span class="disc-icon">❤️</span> Salud & Rehabilitación</div>
+    <div class="discipline-pill"><span class="disc-icon">🧠</span> Salud mental + alimentación</div>
+    <div class="discipline-pill"><span class="disc-icon">👴</span> Tercera edad activa</div>
+    <div class="discipline-pill"><span class="disc-icon">🤰</span> Embarazo & Postparto</div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ROADMAP -->
+<section class="section" id="roadmap">
+  <div class="section-label">03 — Fases de desarrollo</div>
+  <h2 class="section-title">Roadmap de<br>producto.</h2>
+
+  <div class="timeline">
+    <div class="timeline-track"></div>
+
+    <!-- FASE 0 -->
+    <div class="phase">
+      <div class="phase-meta">
+        <span class="phase-version">v0.1</span>
+        <span class="phase-timeframe">Mes 1–2</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Foundation & Architecture</div>
+          <span class="phase-status status-now">Ahora</span>
+        </div>
+        <p class="phase-desc">Setup del monorepo, infraestructura base en Supabase, sistema de autenticación con múltiples roles, estructura del proyecto en GitHub y CI/CD inicial.</p>
+        <div class="features-grid">
+          <div class="feature-chip"><div class="chip-dot"></div>Monorepo Turborepo</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Auth multi-rol (Supabase)</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Esquema BD inicial</div>
+          <div class="feature-chip"><div class="chip-dot"></div>GitHub + CI/CD</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Diseño sistema tokens</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Row Level Security</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Entornos dev/staging/prod</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 1 -->
+    <div class="phase">
+      <div class="phase-meta">
+        <span class="phase-version">v0.2</span>
+        <span class="phase-timeframe">Mes 2–4</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Núcleo de Nutrición + IA</div>
+          <span class="phase-status status-next">Siguiente</span>
+        </div>
+        <p class="phase-desc">Registro de comidas mediante fotografía con análisis nutricional por IA (Claude API). Validación posterior por nutricionista humano. Planes de dieta personalizados según objetivo y tipo de dieta.</p>
+        <div class="features-grid">
+          <div class="feature-chip"><div class="chip-dot"></div>Cámara → análisis IA</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Macros & micros automáticos</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Validación nutricionista</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Planes: volumen / pérdida / mantenimiento</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Dietas especiales (vegano, celíaco...)</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Historial nutricional</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Alarmas de comidas y agua</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 2 -->
+    <div class="phase">
+      <div class="phase-meta">
+        <span class="phase-version">v0.3</span>
+        <span class="phase-timeframe">Mes 4–6</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Entrenamiento Personalizado</div>
+          <span class="phase-status status-planned">Planificado</span>
+        </div>
+        <p class="phase-desc">Rutinas personalizadas por entrenador según deporte, objetivo y nivel. Animaciones 3D/video para técnica de ejercicios. Corrección de postura mediante análisis de imagen por IA.</p>
+        <div class="features-grid">
+          <div class="feature-chip"><div class="chip-dot"></div>Rutinas por disciplina</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Animaciones de ejercicios</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Corrección de técnica por imagen</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Fuerza / cardio / movilidad</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Progresión automática</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Registro de sesiones</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Soporte alto rendimiento</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 3 -->
+    <div class="phase">
+      <div class="phase-meta">
+        <span class="phase-version">v0.4</span>
+        <span class="phase-timeframe">Mes 6–8</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Dashboard Profesionales</div>
+          <span class="phase-status status-planned">Planificado</span>
+        </div>
+        <p class="phase-desc">Web app para todos los profesionales del equipo. Cada especialista tiene su vista personalizada: historial del paciente, notas clínicas, validación de planes y comunicación directa.</p>
+        <div class="features-grid">
+          <div class="feature-chip"><div class="chip-dot"></div>Dashboard nutricionista</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Dashboard entrenador</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Dashboard fisioterapeuta</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Dashboard psicólogo</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Dashboard médico</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Gestión de agenda</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Validación credenciales</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 4 -->
+    <div class="phase">
+      <div class="phase-meta">
+        <span class="phase-version">v0.5</span>
+        <span class="phase-timeframe">Mes 8–10</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Salud Integral & Comportamiento</div>
+          <span class="phase-status status-planned">Planificado</span>
+        </div>
+        <p class="phase-desc">Seguimiento del sueño, hidratación, motivación y adherencia. La IA analiza patrones de comportamiento para personalizar recomendaciones de horarios, hábitos y alertas.</p>
+        <div class="features-grid">
+          <div class="feature-chip"><div class="chip-dot"></div>Registro de sueño</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Alarmas inteligentes agua/comida/snacks</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Análisis de adherencia</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Detección de fatiga / estrés</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Horarios óptimos de entrenamiento</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Score de constancia</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Módulo psicología alimentaria</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 5 -->
+    <div class="phase">
+      <div class="phase-meta">
+        <span class="phase-version">v0.6</span>
+        <span class="phase-timeframe">Mes 10–12</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Pagos, Suscripciones & Chat</div>
+          <span class="phase-status status-planned">Planificado</span>
+        </div>
+        <p class="phase-desc">Integración de pagos con Stripe, planes de suscripción por niveles y comunicación en tiempo real entre usuario y profesional. Historial de conversaciones protegido.</p>
+        <div class="features-grid">
+          <div class="feature-chip"><div class="chip-dot"></div>Stripe suscripciones</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Planes Free / Pro / Premium</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Chat en tiempo real</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Notificaciones push</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Facturación automática</div>
+          <div class="feature-chip"><div class="chip-dot"></div>GDPR + cifrado de datos sensibles</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 6 — BETA -->
+    <div class="phase">
+      <div class="phase-meta">
+        <span class="phase-version">v0.9</span>
+        <span class="phase-timeframe">Mes 12–14</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Beta Cerrada + TestFlight</div>
+          <span class="phase-status status-beta">Beta</span>
+        </div>
+        <p class="phase-desc">Lanzamiento beta con usuarios seleccionados via TestFlight (iOS). Recopilación de feedback, corrección de bugs, ajustes UX y pruebas de carga en producción.</p>
+        <div class="features-grid">
+          <div class="feature-chip"><div class="chip-dot"></div>TestFlight iOS</div>
+          <div class="feature-chip"><div class="chip-dot"></div>~50 usuarios beta</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Feedback estructurado</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Analytics de uso</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Performance testing</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Security audit</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 7 — LAUNCH -->
+    <div class="phase">
+      <div class="phase-meta">
+        <span class="phase-version">v1.0</span>
+        <span class="phase-timeframe">Mes 14–16</span>
+      </div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Lanzamiento Oficial</div>
+          <span class="phase-status status-launch">Launch</span>
+        </div>
+        <p class="phase-desc">Publicación en App Store (iOS) y Google Play (Android). Web pública oficial en producción. Onboarding optimizado, plan de marketing y primeros usuarios reales.</p>
+        <div class="features-grid">
+          <div class="feature-chip"><div class="chip-dot"></div>App Store iOS</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Google Play Android</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Web pública live</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Onboarding optimizado</div>
+          <div class="feature-chip"><div class="chip-dot"></div>Soporte 24/7</div>
+          <div class="feature-chip"><div class="chip-dot"></div>KPIs & dashboards internos</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- STACK TÉCNICO -->
+<section class="section" id="stack">
+  <div class="section-label">04 — Tecnología</div>
+  <h2 class="section-title">Stack técnico<br>seleccionado.</h2>
+
+  <div class="stack-grid">
+    <div class="stack-card">
+      <div class="stack-category">Mobile</div>
+      <div class="stack-tech">React Native + Expo</div>
+      <div class="stack-why">iOS & Android desde un solo código. Acceso a cámara, notificaciones push y sensores nativos.</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-category">Web Admin & Pública</div>
+      <div class="stack-tech">React + Next.js</div>
+      <div class="stack-why">Dashboard de profesionales en Vite+React. Web pública con Next.js para SEO y rendimiento.</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-category">Backend & Base de Datos</div>
+      <div class="stack-tech">Supabase</div>
+      <div class="stack-why">PostgreSQL + Auth + Storage + Realtime. Sin servidor propio. Row Level Security para datos médicos.</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-category">Inteligencia Artificial</div>
+      <div class="stack-tech">Claude API</div>
+      <div class="stack-why">Análisis de fotos de comida, planes nutricionales, asistente conversacional y corrección de técnica.</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-category">Pagos</div>
+      <div class="stack-tech">Stripe</div>
+      <div class="stack-why">Suscripciones recurrentes, pagos únicos, facturación automática y gestión de reembolsos.</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-category">Monorepo & Build</div>
+      <div class="stack-tech">Turborepo</div>
+      <div class="stack-why">Un solo repo para mobile, web y packages compartidos. Build incremental y caché inteligente.</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-category">Animaciones</div>
+      <div class="stack-tech">Lottie + Skia</div>
+      <div class="stack-why">Animaciones 2D/3D de ejercicios en la app. Fluidas, ligeras y controlables por código.</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-category">CI/CD & Control de versiones</div>
+      <div class="stack-tech">GitHub Actions + EAS</div>
+      <div class="stack-why">Deploy automático, builds de Expo para TestFlight y Play Store desde GitHub.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROFESIONALES -->
+<section class="section" id="equipo">
+  <div class="section-label">05 — Equipo médico</div>
+  <h2 class="section-title">Validación humana<br>detrás de la IA.</h2>
+  <p style="color:var(--muted); max-width:560px; line-height:1.7; font-size:15px;">
+    La IA hace el primer análisis. El profesional humano valida, ajusta y firma cada plan. Ninguna recomendación de salud es 100% automática.
+  </p>
+
+  <div class="pros-grid">
+    <div class="pro-card">
+      <span class="pro-icon">🥗</span>
+      <div class="pro-title">Nutricionista</div>
+      <p class="pro-desc">Valida dietas, revisa macros, aprueba planes personalizados y atiende casos complejos.</p>
+    </div>
+    <div class="pro-card">
+      <span class="pro-icon">💪</span>
+      <div class="pro-title">Entrenador Personal</div>
+      <p class="pro-desc">Diseña rutinas, corrige técnica y adapta cargas según el progreso real del atleta.</p>
+    </div>
+    <div class="pro-card">
+      <span class="pro-icon">🦴</span>
+      <div class="pro-title">Fisioterapeuta</div>
+      <p class="pro-desc">Gestiona lesiones, diseña recuperaciones y libera o restringe ejercicios según estado físico.</p>
+    </div>
+    <div class="pro-card">
+      <span class="pro-icon">🧠</span>
+      <div class="pro-title">Psicólogo</div>
+      <p class="pro-desc">Trastornos de alimentación, motivación, ansiedad deportiva y bienestar emocional.</p>
+    </div>
+    <div class="pro-card">
+      <span class="pro-icon">🩺</span>
+      <div class="pro-title">Médico Supervisor</div>
+      <p class="pro-desc">Validación clínica general, revisión de perfiles y alta médica para programas intensivos.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">VITALE.</div>
+  <div class="footer-note">Roadmap v1.0 — Actualizado 2025 · Confidencial</div>
+  <a href="https://github.com" class="github-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+    GitHub
+  </a>
+</footer>
+
+</body>
+</html>
